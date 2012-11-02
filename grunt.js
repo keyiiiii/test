@@ -30,8 +30,26 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: '<config:lint.files>',
-      tasks: 'lint qunit'
+      less: {
+        files: ['<config:less.app.src>'],
+        tasks: 'less'
+      },
+      mincss: {
+        files: ['<config:mincss.app.src>'],
+        tasks: 'mincss'
+      }
+    },
+    less: {
+      app: {
+        src:['css/*.less'],
+        dest:'css/import.css'
+      }
+    },
+    mincss: {
+      app: {
+        src: 'css/import.css',
+        dest:'css/import.min.css'
+      }
     },
     jshint: {
       options: {
@@ -52,7 +70,13 @@ module.exports = function(grunt) {
     uglify: {}
   });
 
+  // loadNpmTasks
+  grunt.loadNpmTasks('grunt-contrib');
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-mincss');
+
   // Default task.
   grunt.registerTask('default', 'lint qunit concat min');
+  grunt.registerTask('start', 'watch');
 
 };
