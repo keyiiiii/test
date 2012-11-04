@@ -6,7 +6,8 @@
   "dependencies": {
     "grunt-contrib": "~0.3.0",
     "grunt-contrib-less": "~0.3.2",
-    "grunt-contrib-mincss": "~0.3.2"
+    "grunt-contrib-mincss": "~0.3.2",
+    "grunt-reload": "~0.2.0"
   },
   "devDependencies": {},
   "scripts": {

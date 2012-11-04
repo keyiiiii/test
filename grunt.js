@@ -31,17 +31,21 @@ module.exports = function(grunt) {
     },
     watch: {
       less: {
-        files: ['<config:less.app.src>'],
-        tasks: 'less'
+        files: ['css/*.less'],
+        tasks: ['less', 'reload']
       },
       mincss: {
         files: ['<config:mincss.app.src>'],
-        tasks: 'mincss'
+        tasks: ['mincss', 'reload']
+      },
+      html: {
+        files: '*.html',
+        tasks: 'reload'
       }
     },
     less: {
       app: {
-        src:['css/*.less'],
+        src:'css/import.less',
         dest:'css/import.css'
       }
     },
@@ -67,6 +71,10 @@ module.exports = function(grunt) {
       },
       globals: {}
     },
+    reload: { // LiveReloadサーバー
+      port: 35729,
+      liveReload: {}
+    },
     uglify: {}
   });
 
@@ -74,9 +82,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-mincss');
+  grunt.loadNpmTasks('grunt-reload');
 
   // Default task.
   grunt.registerTask('default', 'lint qunit concat min');
-  grunt.registerTask('start', 'watch');
+  grunt.registerTask('start', ['reload', 'watch']);
 
 };
